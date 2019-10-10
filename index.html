@@ -11,8 +11,11 @@
         <form action="" v-on:submit.prevent="submit">
             <h2>¿Cuales son tus cursos favoritos?</h2>
             <template v-for="curso in cursos">
-                <input v-model="cursosSeleccionados" type="checkbox" v-bind:id="curso.value" v-bind:value="curso.value">
-                <label v-bind:for="curso.value">{{ curso.nombre }}</label>
+                                <!-- escuchar evento dentro de componete -->
+                                <!-- el valor es el metodo que se ejecuta en nuestro componente padre -->
+                <curso v-bind:curso="curso" v-on:checked="selelectCurso"></curso>
+                <!-- <input v-model="cursosSeleccionados" type="checkbox" v-bind:id="curso.value" v-bind:value="curso.value">
+                <label v-bind:for="curso.value">{{ curso.nombre }}</label> -->
             </template> 
             <button type="submit">Enviar</button>
         </form>
@@ -20,6 +23,26 @@
     
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
     <script>
+        //creacion de componente 
+        Vue.component('curso',{
+            //propiedades que necesita el componente para dibujarse
+            props:['curso'],
+            methods:{
+                onchange: function(ev){
+                    //creacion del evento
+                    //primer parametro nombre del evento
+                    this.$emit('checked', this.curso.value, ev.target.checked);
+                }
+            },
+            template: `
+            <div>
+                <input v-on:change="onchange" type="checkbox" v-bind:id="curso.value" v-bind:value="curso.value">
+                <label v-bind:for="curso.value">{{ curso.nombre }}</label>
+            </div>    
+            `
+        })
+
+
         const app = new Vue({
             el: '#app',
             data:{
@@ -45,6 +68,16 @@
             methods:{
                 submit: function(){
                     console.log(this.cursosSeleccionados);
+                },
+                selelectCurso: function(curso, checked){
+                    if(checked){
+                        this.cursosSeleccionados.push(curso);
+                    }else{
+                        //devolvernos el indice del array 
+                        let index = this.cursosSeleccionados.indexOf(curso)
+                        //apartir del indice del array se quite 1
+                        this.cursosSeleccionados.splice(index, 1)
+                    }
                 }
             }
         });
