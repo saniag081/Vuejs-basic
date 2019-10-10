@@ -8,8 +8,13 @@
 </head>
 <body>
     <div id="app">
-            <h1>{{ titulo | uppercase}}</h1>
-            <h2>{{ subtitulo | capitaLize }}</h2>
+        <!-- eventos -->
+        <!-- <button v-on:click="sumar">Sumar Uno</button> -->
+        <!-- <button @click="restar">Restar Uno</button> -->
+        <button v-on:click="contador++">Sumar Uno</button>
+        <button @:click="contador--">Sumar Uno</button>
+
+        El contador está en {{ contador }}
     </div>
     
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
@@ -17,24 +22,17 @@
         const app = new Vue({
             el: '#app',
             data:{
-                titulo: 'Estas en Platzi',
-                subtitulo: 'Estas viendo el curso de VueJS'
-            },
-            filters: {
-                uppercase: function(str){
-                    return str.toUpperCase();
-                },
-                lowercase: function(str){
-                    return str.toLowerCase();
-                },
-                capitaLize: function(str){
-                    return str.charAt(0).toUpperCase()+
-                    str.slice(1);
-                }
-            }
+                contador: 0
+            }//,
+            // methods:{
+            //     sumar: function(){
+            //         this.contador++
+            //     },
+            //     restar: function(){
+            //         this.contador--
+            //     }
+            // }
         });
-
-
     </script>
 </body>
 </html>
