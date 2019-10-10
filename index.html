@@ -8,8 +8,19 @@
 </head>
 <body>
     <div id="app">
-        hola {{nombre}}
-        <a v-bind:href="url">{{pagina}}</a>
+        <!-- hola {{nombre}} -->
+        <!-- <template v-if="mostrar"> -->
+        <!-- con if elimina los elementos del DOM -->
+        <!-- con show utiliza css para ocultarlos elementos -->
+        <div v-show="mostrar">
+            <h1>este es mi titulo</h1>
+            <h2>este es mi subtitulo</h2>
+            <a :href="url">{{pagina}}</a>
+        </div>
+        <!-- </template> -->
+        <div v-show="!mostrar">
+            esto esta oculto
+        </div>
     </div>
     
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
@@ -17,9 +28,10 @@
         const app = new Vue({
             el: '#app',
             data:{
-                nombre: 'Santiago',
+                // nombre: 'Santiago',
                 url: 'https://google.com',
-                pagina: 'Ir a pagina'
+                pagina: 'Ir a pagina',
+                mostrar: true
             }
         });
 
