@@ -8,13 +8,22 @@
 </head>
 <body>
     <div id="app">
-        <!-- eventos -->
-        <!-- <button v-on:click="sumar">Sumar Uno</button> -->
-        <!-- <button @click="restar">Restar Uno</button> -->
-        <button v-on:click="contador++">Sumar Uno</button>
-        <button @:click="contador--">Sumar Uno</button>
+        <input type="text" placeholder="ingresa tu nombre" v-model="nombre">
+        <p>Tu nombre en mayuscula es: {{nombre | upperCase}}</p>
 
-        El contador está en {{ contador }}
+        <form action="" v-on:submit.prevent="submit">
+            <h2>¿Cuales son tus cursos favoritos?</h2>
+            <input v-model="cursos" type="checkbox" id="vue" value="vue">
+            <label for="vue">Curso de Vue.js</label>
+            <input v-model="cursos" type="checkbox" id="seo" value="seo">
+            <label for="seo">Curso de SEO</label>
+            <input v-model="cursos" type="checkbox" id="react" value="react">
+            <label for="react">Curso de React.js</label>
+            <input v-model="cursos" type="checkbox" id="growth" value="growth">
+            <label for="growth">Curso de Growth Marketing</label>
+
+            <button type="submit">Enviar</button>
+        </form>
     </div>
     
     <script src="https://unpkg.com/vue/dist/vue.js"></script>
@@ -22,16 +31,19 @@
         const app = new Vue({
             el: '#app',
             data:{
-                contador: 0
-            }//,
-            // methods:{
-            //     sumar: function(){
-            //         this.contador++
-            //     },
-            //     restar: function(){
-            //         this.contador--
-            //     }
-            // }
+                nombre: '',
+                cursos: []
+            },
+            filters:{
+                upperCase: function(str){
+                    return str.toUpperCase();
+                }
+            },
+            methods:{
+                submit: function(){
+                    console.log(this.cursos);
+                }
+            }
         });
     </script>
 </body>
